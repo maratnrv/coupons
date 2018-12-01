@@ -1,4 +1,9 @@
 %p#notice= notice
+= @coupon.day
+= @coupon.uid
+= @coupon.content
+= image_tag 'qr-code.png'
+
 = link_to 'Edit', edit_coupon_path(@coupon)
 |
 = link_to 'Back', coupons_path
