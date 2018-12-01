@@ -26,12 +26,11 @@ class CouponsController < ApplicationController
   def create
     @coupon = Coupon.new(coupon_params)
 
-    respond_to do |format|
-      if @coupon.save
-        redirect_to @coupon, notice: 'Coupon was successfully created.'
-      else
-        render :new
-      end
+
+    if @coupon.save
+      redirect_to @coupon, notice: 'Coupon was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -64,6 +63,6 @@ class CouponsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coupon_params
-      params.require(:coupon).permit(:name, :content, :uid, :day, :usable, :used, :enabled)
+      params.require(:coupon).permit(:name, :content, :code_url, :uid, :day, :usable, :used, :enabled)
     end
 end
