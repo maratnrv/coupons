@@ -1,5 +1,7 @@
 class CouponsController < ApplicationController
   before_action :set_coupon, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:edit, :destroy]
+  before_action :authenticate_user, only: [:get_coupon]
 
   # GET /coupons
   # GET /coupons.json
@@ -10,6 +12,25 @@ class CouponsController < ApplicationController
   # GET /coupons/1
   # GET /coupons/1.json
   def show
+  end
+
+  def take
+    uid = params.require(:uid)
+    if uid.blank?
+      render plain: 'error'
+    else
+      @coupon = Coupon.find_by(uid: uid)
+      redirect_to @coupon
+    end
+  end
+
+  def take_coupon
+    uid = params.require(:uid)
+    if uid.blank?
+      render plain: 'error'
+    else
+      @coupon = Coupon.find_by(uid: uid)
+    end
   end
 
   # GET /coupons/new
@@ -37,12 +58,10 @@ class CouponsController < ApplicationController
   # PATCH/PUT /coupons/1
   # PATCH/PUT /coupons/1.json
   def update
-    respond_to do |format|
-      if @coupon.update(coupon_params)
-        redirect_to @coupon, notice: 'Coupon was successfully updated.'
-      else
-        render :edit
-      end
+    if @coupon.update(coupon_params)
+      redirect_to @coupon, notice: 'Coupon was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -50,19 +69,23 @@ class CouponsController < ApplicationController
   # DELETE /coupons/1.json
   def destroy
     @coupon.destroy
-    respond_to do |format|
-      redirect_to coupons_url, notice: 'Coupon was successfully destroyed.'
-    end
+    redirect_to coupons_url, notice: 'Coupon was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_coupon
-      @coupon = Coupon.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_coupon
+    @coupon = Coupon.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def coupon_params
-      params.require(:coupon).permit(:name, :content, :code_url, :uid, :day, :usable, :used, :enabled)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def coupon_params
+    params.require(:coupon).permit(:name, :content, :code_url, :uid, :day, :usable, :used, :enabled)
+  end
+
+  def authenticate_admin
+    authenticate_or_request_with_http_basic do |id, password|
+      id == 'marat' && password == 'qwe123RT!'
     end
+  end
 end
