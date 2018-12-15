@@ -1,7 +1,7 @@
 class CouponsController < ApplicationController
   before_action :set_coupon, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin, only: [:edit, :destroy]
-  before_action :authenticate_user, only: [:get_coupon]
+  before_action :authenticate_user, only: [:take]
 
   # GET /coupons
   # GET /coupons.json
@@ -24,14 +24,10 @@ class CouponsController < ApplicationController
     end
   end
 
-  def take_coupon
-    uid = params.require(:uid)
-    if uid.blank?
-      render plain: 'error'
-    else
-      @coupon = Coupon.find_by(uid: uid)
-    end
+  def my_coupons
+    @coupons = Coupon.where(enabled: true)
   end
+
 
   # GET /coupons/new
   def new
@@ -86,6 +82,12 @@ class CouponsController < ApplicationController
   def authenticate_admin
     authenticate_or_request_with_http_basic do |id, password|
       id == 'marat' && password == 'qwe123RT!'
+    end
+  end
+
+  def authenticate_user
+    authenticate_or_request_with_http_basic do |id, password|
+      id == 'albina' && password == '07102004'
     end
   end
 end

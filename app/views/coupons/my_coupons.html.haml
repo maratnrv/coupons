@@ -1,0 +1,18 @@
+%p#notice= notice
+%h1 Coupons
+- if @coupons.present?
+  %table
+    %thead
+      %tr
+        %th Day
+        %th UID
+        %th usable
+        %th used
+    %tbody
+      - @coupons.each do |coupon|
+        %tr
+          %td= coupon.day
+          %td= coupon.uid
+          %td= coupon.usable
+          %td= coupon.used
+          %td= link_to 'Show', coupon
