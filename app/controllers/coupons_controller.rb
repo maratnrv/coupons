@@ -1,5 +1,5 @@
 class CouponsController < ApplicationController
-  before_action :set_coupon, only: [:show, :edit, :update, :destroy]
+  before_action :set_coupon, only: [:show, :edit, :update, :destroy, :ss_coupon]
   before_action :authenticate_admin, only: [:edit, :destroy]
   before_action :authenticate_user, only: [:take]
 
@@ -68,6 +68,15 @@ class CouponsController < ApplicationController
     redirect_to coupons_url, notice: 'Coupon was successfully destroyed.'
   end
 
+  def ss_coupon
+    coupon_params
+    @coupon.comment = params[:coupon][:comment]
+    @coupon.used = true
+    @coupon.save!
+    #UserMailer.use_coupon(@coupon).deliver_now
+    redirect_to coupon_path(@coupon)
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_coupon
@@ -76,7 +85,7 @@ class CouponsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def coupon_params
-    params.require(:coupon).permit(:name, :content, :code_url, :uid, :day, :usable, :used, :enabled)
+    params.require(:coupon).permit(:name, :content, :code_url, :uid, :day, :usable, :used, :enabled, :comment)
   end
 
   def authenticate_admin
@@ -87,7 +96,7 @@ class CouponsController < ApplicationController
 
   def authenticate_user
     authenticate_or_request_with_http_basic do |id, password|
-      id == 'albina' && password == '07102004'
+      (id == 'albina' && password == '07102004') || (id == 'marat' && password == 'qwe123RT!')
     end
   end
 end

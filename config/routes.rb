@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :coupons
+  resources :coupons do
+    member do
+      post :ss_coupon
+    end
+  end
 
   root to: 'coupons#index'
 

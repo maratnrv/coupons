@@ -1,9 +1,16 @@
 %p#notice= notice
 = @coupon.day
 = @coupon.uid
-= @coupon.content
-= image_tag 'qr-code.png'
+= raw @coupon.content
 
 = link_to 'Edit', edit_coupon_path(@coupon)
-|
 = link_to 'Back', coupons_path
+
+- if @coupon.usable && (!@coupon.used || @coupon.blank?)
+  = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
+    = f.text_area :comment
+    = f.submit 'Use coupon'
+- else
+  = @coupon.comment
+
+= link_to 'Back', my_coupons_path

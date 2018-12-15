@@ -1,0 +1,11 @@
+%p
+  %strong Coupon for the day:
+= @coupon.day
+
+%p
+  %strong Link to coupon:
+= "https://coupons2019.herokuapp.com/coupons/#{@coupon.uid}"
+
+%p
+  %strong Comment:
+= @coupon.comment
