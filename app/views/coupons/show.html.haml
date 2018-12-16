@@ -8,7 +8,7 @@
 
 - if @coupon.usable && (!@coupon.used || @coupon.blank?)
   = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
-    = f.text_area :comment
+    = f.text_area :comment, inline_label: 'Your comment'
     = f.submit 'Use coupon'
 - else
   = @coupon.comment
