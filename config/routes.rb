@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :coupons do
     member do
+      get  :print_version
       post :ss_coupon
     end
   end
