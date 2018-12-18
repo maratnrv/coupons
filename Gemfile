@@ -56,6 +56,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails', '~> 1.0.0'
 gem 'simple_form', '~> 3.5'
 
-gem 'bootstrap-sass', '~> 3.4.0'
-gem 'sassc-rails', '>= 2.0.0'
+gem 'bootstrap'
+gem 'popper_js'
+gem 'sprockets-rails'
 gem 'jquery-rails'
