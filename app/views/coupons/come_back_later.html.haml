@@ -8,7 +8,7 @@
       %br
       and you'll find something here...
     .col-3
-      = image_tag("p1.png", size: "100x100", alt: "Come back later")
+      = image_tag("p#{rand(1..4)}.png", size: "100x100", alt: "Come back later")
     .col-6
   .row
     = link_to 'Back', my_coupons_path

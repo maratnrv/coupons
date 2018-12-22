@@ -26,8 +26,18 @@ class CouponsController < ApplicationController
       if @coupon.day >= Time.now()
         redirect_to my_coupons_path, alert: 'Its too early for this coupon, come back later'
       else
-        @coupon.enabled = true;
-        redirect_to @coupon
+        if !@coupon.enabled? do
+          @coupon.enabled = true
+          @coupon.save!
+          notice = "Congratulations, you've got new coupon"
+        else
+          notice = nil
+        end
+        if Time.now >= '2018-12-25' do
+          redirect_to @coupon, notice: notice
+        else
+          redirect_to come_back_later_path, notice: notice
+        end
       end
     end
   end
