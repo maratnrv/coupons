@@ -1,6 +1,4 @@
-%p#notice= notice
-= @coupon.day
-= @coupon.uid
-= raw @coupon.content
-%img https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://coupons2019.herokuapp.com/coupons/6fe03135
-= link_to 'Back', coupons_path
+.bg
+  .day= @coupon.day.strftime("%-d")
+  .qr
+    %img{src:"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://coupons2019.herokuapp.com/coupons/#{@coupon.uid}"}

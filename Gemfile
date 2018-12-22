@@ -60,3 +60,7 @@ gem 'bootstrap'
 gem 'popper_js'
 gem 'sprockets-rails'
 gem 'jquery-rails'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end

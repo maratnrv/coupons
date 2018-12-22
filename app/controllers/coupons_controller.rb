@@ -23,8 +23,17 @@ class CouponsController < ApplicationController
       render plain: 'error'
     else
       @coupon = Coupon.find_by(uid: uid)
-      redirect_to @coupon
+      if @coupon.day >= Time.now()
+        redirect_to my_coupons_path, alert: 'Its too early for this coupon, come back later'
+      else
+        @coupon.enabled = true;
+        redirect_to @coupon
+      end
     end
+  end
+
+  def come_back_later
+
   end
 
   def my_coupons

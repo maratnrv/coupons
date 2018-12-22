@@ -1,0 +1,14 @@
+.container
+  %h1 Ho-ho-ho
+  .row
+    .col-3
+      It's a Christmas present,
+      %br
+      so come back after Christmas night
+      %br
+      and you'll find something here...
+    .col-3
+      = image_tag("p1.png", size: "100x100", alt: "Come back later")
+    .col-6
+  .row
+    = link_to 'Back', my_coupons_path

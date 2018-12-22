@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   controller :coupons do
     get 'take'
     get 'my_coupons'
+    get 'come_back_later'
   end
 
 end
