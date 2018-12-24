@@ -1,4 +1,4 @@
-.bg
-  .day= @coupon.day.strftime("%-d")
-  .qr
-    %img{src:"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://coupons2019.herokuapp.com/coupons/#{@coupon.uid}"}
+.bg= image_tag("bg_coupon.png", size: "580x360", alt: "")
+.day= @coupon.day.strftime("%-d")
+.qr
+  %img{src:"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://coupons2019.herokuapp.com/coupons/#{@coupon.uid}"}
