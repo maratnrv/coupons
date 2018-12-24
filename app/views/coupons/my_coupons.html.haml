@@ -1,20 +1,19 @@
-%p#notice= notice
-%h1 Here's your Coupons
-- if @coupons.present?
-  %table
-    %thead
-      %tr
-        %th Day
-        %th UID
-        %th usable
-        %th used
-    %tbody
-      - @coupons.each do |coupon|
+.container
+  %p#notice= notice
+  %h1 Here's your Coupons
+  - if @coupons.present?
+    %table
+      %thead
         %tr
-          %td= coupon.day
-          %td= coupon.uid
-          %td= coupon.usable
-          %td= coupon.used
-          %td= link_to 'Show', coupon
-- else
-  %div Sorry. You have no obtained coupons yet
+          %th Day
+          %th Can be used?
+          %th Already used
+      %tbody
+        - @coupons.each do |coupon|
+          %tr
+            %td= coupon.day.strftime("%b, %-d")
+            %td= coupon.usable
+            %td= coupon.used
+            %td= link_to 'Show', coupon
+  - else
+    %div Sorry. You have no obtained coupons yet
