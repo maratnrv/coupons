@@ -1,7 +1,7 @@
 class CouponsController < ApplicationController
   before_action :set_coupon, only: [:show, :print_version, :edit, :update, :destroy, :ss_coupon]
   before_action :authenticate_admin, only: [:edit, :destroy]
-  before_action :authenticate_user, only: [:take]
+  before_action :authenticate_user, only: [:show]
 
   # GET /coupons
   # GET /coupons.json
@@ -12,36 +12,24 @@ class CouponsController < ApplicationController
   # GET /coupons/1
   # GET /coupons/1.json
   def show
-  end
-
-  def print_version
-  end
-
-  def take
-    uid = params.require(:uid)
-    if uid.blank?
-      render plain: 'error'
+    if @coupon.day >= Time.now()
+      redirect_to my_coupons_path, alert: 'Its too early for this coupon, come back later'
     else
-      @coupon = Coupon.find_by(uid: uid)
-      if @coupon.day >= Time.now()
-        redirect_to my_coupons_path, alert: 'Its too early for this coupon, come back later'
+      if !@coupon.enabled?
+        @coupon.enabled = true
+        @coupon.save!
+        notice = "Congratulations, you've got new coupon"
       else
-        if !@coupon.enabled?
-          @coupon.enabled = true
-          @coupon.save!
-          notice = "Congratulations, you've got new coupon"
-        else
-          notice = nil
-        end
-        if Time.now >= '2018-12-25'
-          redirect_to @coupon, notice: notice
-        else
-          redirect_to come_back_later_path, notice: notice
-        end
+        notice = nil
+      end
+      if Time.now < '2018-12-25'
+        redirect_to come_back_later_path, notice: notice
       end
     end
   end
 
+  def print_version
+  end
   def come_back_later
 
   end

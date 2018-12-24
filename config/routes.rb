@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   root to: 'coupons#index'
 
   controller :coupons do
-    get 'take'
     get 'my_coupons'
     get 'come_back_later'
   end
