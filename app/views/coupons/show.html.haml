@@ -1,14 +1,15 @@
 .container
   %p#notice= notice
-  = @coupon.day
-  = @coupon.uid
+  %h= @coupon.name
   = raw @coupon.content
-
-  - if @coupon.usable && (!@coupon.used || @coupon.blank?)
-    = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
-      = f.text_area :comment, inline_label: 'Your comment'
-      = f.submit 'Use coupon'
-  - else
-    = @coupon.comment
+  - if @coupon.usable
+    - if @coupon.used
+      This one was used with your comment:
+      = @coupon.comment
+    - else
+      This one can be used
+      = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
+        = f.text_area :comment, inline_label: 'You can leave your comment for me here:'
+        = f.submit 'Use coupon'
 
   = link_to 'Back', my_coupons_path
