@@ -1,15 +1,20 @@
 .container
   %p#notice= notice
-  %h= @coupon.name
-  = raw @coupon.content
-  - if @coupon.usable
-    - if @coupon.used
-      This one was used with your comment:
-      = @coupon.comment
-    - else
-      This one can be used
-      = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
-        = f.text_area :comment, inline_label: 'You can leave your comment for me here:'
-        = f.submit 'Use coupon'
-
-  = link_to 'Back', my_coupons_path
+  %h1= @coupon.name
+  %p
+    = raw @coupon.content
+  %p
+    - if @coupon.usable
+      - if @coupon.used
+        Этот купон уже был использован:
+        = @coupon.comment
+      - else
+        О, а этот купон можно использовать
+        %br
+        оставь тут свои комментарии и пожелания:
+        = simple_form_for @coupon, url: ss_coupon_coupon_path, method: :post do |f|
+          = f.text_area :comment
+          %p
+            = f.submit 'Использовать купон'
+  %p
+    = link_to 'Назад к купонам', my_coupons_path

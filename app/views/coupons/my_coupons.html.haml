@@ -1,17 +1,17 @@
 .container
   %p#notice= notice
-  %h1 Here's your Coupons
+  %h1 Тут все твои купончики
   - if @coupons.present?
     - @coupons.each do |coupon|
       .row
         %div
           - if coupon.usable
-            - status = '*this one can be used'
+            - status = '*а этот можно использовать'
           - elsif coupon.used
-            - status = '*this one is already used'
+            - status = '*этот уже использован'
           - else coupon.used
-            - status = '*this one just a card'
-          = link_to "Coupon #{coupon.name} for #{coupon.day.strftime("%b, %-d")}", coupon
+            - status = '*здесь просто карточка'
+          = link_to "Купон: '#{coupon.name}' ##{coupon.day.strftime("%-d")}", coupon
           .small= status
   - else
-    %div Sorry. You have no obtained coupons yet
+    %div Упс, а у тебя еще нет активных купонов
