@@ -12,24 +12,18 @@ class CouponsController < ApplicationController
   # GET /coupons/1
   # GET /coupons/1.json
   def show
-    if @coupon.day >= Time.now()
-      redirect_to my_coupons_path, alert: 'Its too early for this coupon, come back later'
+    if !@coupon.enabled?
+      @coupon.enabled = true
+      @coupon.save!
+      notice = "Congratulations, you've got new coupon"
     else
-      if !@coupon.enabled?
-        @coupon.enabled = true
-        @coupon.save!
-        notice = "Congratulations, you've got new coupon"
-      else
-        notice = nil
-      end
-      if Time.now < '2018-12-25'
-        redirect_to come_back_later_path, notice: notice
-      end
+      notice = nil
     end
   end
 
   def print_version
   end
+
   def come_back_later
 
   end

@@ -6,6 +6,7 @@
       %tr
         %th Day
         %th UID
+        %th name
         %th enabled
         %th usable
         %th used
@@ -14,6 +15,7 @@
         %tr
           %td= coupon.day.strftime("%b, %-d")
           %td= coupon.uid
+          %td= coupon.name
           %td= coupon.enabled
           %td= coupon.usable
           %td= coupon.used

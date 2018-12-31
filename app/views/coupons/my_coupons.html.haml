@@ -11,7 +11,7 @@
             - status = '*this one is already used'
           - else coupon.used
             - status = '*this one just a card'
-          = link_to "Coupon for #{coupon.day.strftime("%b, %-d")}", coupon
+          = link_to "Coupon #{coupon.name} for #{coupon.day.strftime("%b, %-d")}", coupon
           .small= status
   - else
     %div Sorry. You have no obtained coupons yet
