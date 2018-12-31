@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'coupons#index'
+  root to: 'coupons#my_coupons'
 
   controller :coupons do
     get 'my_coupons'
